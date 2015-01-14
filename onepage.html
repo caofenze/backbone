@@ -6,15 +6,7 @@
 			Backbone.js Example
 		</title>
 		<link rel="stylesheet" href="css/master.css" type="text/css" media="screen" />
-		<script type="text/javascript" src="js/lib/jquery.js"></script>
-		<script type="text/javascript" src="js/lib/underscore.js"></script>
-		<script type="text/javascript" src="js/lib/backbone.js"></script>
-		<script type="text/javascript" src="js/init.js"></script>
-		<script type="text/javascript" src="js/models.js"></script>
-		<script type="text/javascript" src="js/collections.js"></script>
-		<script type="text/javascript" src="js/views.js"></script>
-		<script type="text/javascript" src="js/routers.js"></script>
-		<script type="text/javascript" src="js/application.js"></script>
+		
 	</head>
 	<body>
 		<div class="wrapper">
@@ -35,70 +27,26 @@
 				<ul class="team-list">
 				</ul>
 			</div>
-			<script id="teamTemplate" type="text/template">
-				<%= name %>
+			
+			<script id="teamTemplate" type="text/template" data-name="templateName">
+				<li><div class="pic-panel"><a target="_blank" href="<%=houseCode%>"><img src="<%=listPicUrl%>"><div class="pic-num"><div class="pic-num-bg"></div><span><i class="ico-pic"></i><em class="num"><%=picNum%></em></span></div></a></div><div class="info-panel"><h2><a target="_blank" href="<%=listPicUrl%>"><%=titleString%></a></h2><div><div class="col-1 fl"><div class="other"><div class="con"><a href="#;"><%=frameOrientation%></a><span>/</span><%=floorInfo%><span>/</span><%=finishYear%></div></div><div class="introduce"><%=schoolInfoString%>，<%=subwayInfoString%></div><a href="#;" class="more">查看同户型成交记录</a></div><div class="col-2 fr"><div class="fl"><div class="div-cun"><%=signTime%></div><p><%=signSource%></p></div><div class="fl"><div class="div-cun"><%=unitPrice%><span>元/平<label><i>±5%</i><p>价格范围在1190万-1233万之间，该房源签约价来自线下采集，仅供参考<i></i></p></label></span></div><p>签约单价</p></div><div class="fr"><div class="div-cun"><%=signPrice%><span>万<label><i>±5%</i><p>价格范围在1190万-1233万之间，该房源签约价来自线下采集，仅供参考<i></i></p></label></span></div><p>签约总价</p></div></div></div></div>
+				</li>
 			</script>
+
 		</div>
-		<script type="text/javascript">
-
-		var tpl = new App.Models.Team().defaults.tpl;
-
-
-		var AppView = Backbone.View.extend({
-			el : $(".list"),
-			el2 : $("#list"),
-			el3 : $("#item"),
-
-			template : _.template("<h3>Hello <%=world%> </h3>"),
-
-			template2 : _.template(tpl),
-
-			initialize : function(user){
-				this.render();
-				this.append(user);
-			},
-		    render: function(){
-		    	$('#main').append('<h1>一级标题</h1>');
-		  	},
-		  	append : function(user){
-		  		this.el.append('<ul><li>1</li><li>2</li><li>3</li><ul>');
-
-		  		this.el2.html(this.template({world:' world!'}));
-
-		  		var data = user.itemData;
-
-		  		for(var i=0;i<data.length;i++){
-		  			this.el3.append(this.template2({
-			  			houseCode:data[i].houseCode,
-			  			listPicUrl:data[i].listPicUrl,
-			  			titleString :data[i].titleString,
-			  			picNum:data[i].picNum,
-						frameOrientation:data[i].frameOrientation,
-						floorInfo:data[i].floorInfo,
-						finishYear:data[i].finishYear,
-						schoolInfoString:data[i].schoolInfoString,
-						subwayInfoString:data[i].subwayInfoString,
-						signTime:data[i].signTime,
-						signSource:data[i].signSource,
-						unitPrice:data[i].unitPrice,
-						signPrice:data[i].signPrice 
-					}));
-		  		}
-		  		
-		  	}
-		});
-		var User = Backbone.Model.extend({
-		    urlRoot: '/backbonejs/data/data.js'
-		});
+		<script type="text/javascript" src="js/lib/jquery.js"></script>
+		<script type="text/javascript" src="js/lib/underscore-min.js"></script>
+		<script type="text/javascript" src="js/lib/backbone-min.js"></script>
+		<script type="text/javascript" src="js/init.js"></script>
+		<script type="text/javascript" src="js/models.js"></script>
+		<script type="text/javascript" src="js/views.js"></script>
+		<script type="text/javascript" src="js/routers.js"></script>
+		<script type="text/javascript" src="js/application.js"></script>
+		<script type="text/javascript" src="js/collections.js"></script>
 		
-		var user = new User();
-		user.fetch({
-		    success: function (user){
-		        //console.log(user.toJSON());
-		        new AppView(user.toJSON());
-		    }
-		});
-
+		<script type="text/javascript">
+		//var router = new App.Routers.Main();
+		new App.Collections.Teams();
 		</script>
 	</body>
 </html>

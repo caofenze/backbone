@@ -1,33 +1,51 @@
-App.Views.Teams = Backbone.View.extend({
+/*App.Views.Teams = Backbone.View.extend({
 	el : 'ul.team-list'
-});
+});*/
+
+//模板js插入
+var tpl = new App.Models.Team().defaults.tpl;
 
 App.Views.Team = Backbone.View.extend({
-	className : '.team-element',
-	tagName : 'div',
-	item2 : $("#item2"),
-	model : new App.Models.Team(),
-	
-	initialize : function() {
-		this.model.bind('change', this.render, this);
-	},
+	el : $(".list"),
+	el2 : $("#list"),
+	el3 : $("#item"),
 
-	render : function() {
-		var tpl = _.template($("#item2").html());
-		// Compile the template
-		var compiledTemplate = _.template($('#teamTemplate').html());
+	template : _.template("<h3>Hello <%=world%> </h3>"),
 
-		$(this.item2.html(compiledTemplate.model.toJSON));
-		
-		//$(this.el).html("<span>" + this.model.get("name") + "</span>");
-		$(this.el).html(compiledTemplate(this.model.toJSON()));
+	template2 : _.template($("#teamTemplate").html()),
+
+	initialize : function(user){
+		this.render();
+		this.appendItem(user);
 	},
-	events : {
-		'click a.more' : 'moreInfo'
-	},
-	
-	moreInfo : function(e){
-		// Logic here
-	}
+    render: function(){
+    	$('#main').append('<h1>一级标题</h1>');
+  	},
+  	appendItem : function(user){
+
+  		this.el.append('<ul><li>1</li><li>2</li><li>3</li><ul>');
+
+  		this.el2.html(this.template({world:' Tom!'}));
+
+  		var data = user.itemData;
+
+  		for(var i=0;i<data.length;i++){
+  			this.el3.append(this.template2({
+	  			houseCode:data[i].houseCode,
+	  			listPicUrl:data[i].listPicUrl,
+	  			titleString :data[i].titleString,
+	  			picNum:data[i].picNum,
+				frameOrientation:data[i].frameOrientation,
+				floorInfo:data[i].floorInfo,
+				finishYear:data[i].finishYear,
+				schoolInfoString:data[i].schoolInfoString,
+				subwayInfoString:data[i].subwayInfoString,
+				signTime:data[i].signTime,
+				signSource:data[i].signSource,
+				unitPrice:data[i].unitPrice,
+				signPrice:data[i].signPrice 
+			}));
+  		}
+  	}
 
 });
